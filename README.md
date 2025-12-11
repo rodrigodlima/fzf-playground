@@ -17,6 +17,8 @@ So "fuzzy" here means similarity-based searching, non-exact matching, and tolera
 
 ## Some examples
 
+
+### Find in git log
 ```
 $ git log | fzf
 ````
@@ -27,3 +29,8 @@ There are several ways to search text in fzf. If you want an exact word match, y
 
 
 ![find example](images/demo.gif)
+
+
+### Find and checkout branch
+
+```$ git branch |fzf | xargs git checkout``` 
