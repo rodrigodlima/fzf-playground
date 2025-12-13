@@ -34,3 +34,15 @@ There are several ways to search text in fzf. If you want an exact word match, y
 ### Find and checkout branch
 
 ```$ git branch |fzf | xargs git checkout``` 
+
+### Tips
+
+fzf also has the ability to turn itself into a different process.
+
+```$ fzf --bind 'enter:become(vim {})'```
+
+Compared to the seemingly equivalent command substitution vim "$(fzf)", this approach has several advantages:
+
+* Vim will not open an empty file when you terminate fzf with CTRL-C
+* Vim will not open an empty file when you press ENTER on an empty result
+* Can handle multiple selections even when they have whitespaces
