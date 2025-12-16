@@ -21,7 +21,7 @@ So "fuzzy" here means similarity-based searching, non-exact matching, and tolera
 ### Find in git log
 ```
 $ git log | fzf
-````
+```
 
 With this command, you can search git history.
 
@@ -46,3 +46,14 @@ Compared to the seemingly equivalent command substitution vim "$(fzf)", this app
 * Vim will not open an empty file when you terminate fzf with CTRL-C
 * Vim will not open an empty file when you press ENTER on an empty result
 * Can handle multiple selections even when they have whitespaces
+
+Example usage without --bind option. As you can see, after closing fzf, the vim command opens a new blank file
+
+
+![without bind](images/demo2.gif)
+
+Now, let's try using the --bind option
+
+![with bind](images/demo3.gif)
+
+As you can see, after exiting fzf, vim doesn't create a new file, because the bind option from fzf creates a new process itself
