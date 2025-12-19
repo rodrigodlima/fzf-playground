@@ -57,3 +57,13 @@ Now, let's try using the --bind option
 ![with bind](images/demo3.gif)
 
 As you can see, after exiting fzf, vim doesn't create a new file, because the bind option from fzf creates a new process itself
+
+## Display modes
+fzf by default runs in fullscreen mode, but there are other display modes.
+
+--height mode
+With --height HEIGHT[%], fzf will start below the cursor with the given height.
+
+````
+fzf --height 40%
+```
