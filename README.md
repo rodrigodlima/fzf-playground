@@ -70,6 +70,12 @@ fzf --height 40%
 
 # Set up fzf key bindings and fuzzy completion
 
+Firts, install fzf key bindings:
+
+```
+$(brew --prefix)/opt/fzf/install 
+```
+
 ## Copy and paste this content behing in your ~/.zshrc file
 
 ```
