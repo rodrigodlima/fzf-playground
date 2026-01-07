@@ -64,9 +64,10 @@ fzf by default runs in fullscreen mode, but there are other display modes.
 --height mode
 With --height HEIGHT[%], fzf will start below the cursor with the given height.
 
-````
+```
 fzf --height 40%
 ```
+
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 export FZF_CTRL_R_OPTS="
