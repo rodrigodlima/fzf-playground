@@ -69,8 +69,17 @@ fzf --height 40%
 ```
 
 # Set up fzf key bindings and fuzzy completion
+
+## Copy and paste this content behing in your ~/.zshrc file
+
+```
 source <(fzf --zsh)
+```
+
+```
 export FZF_CTRL_R_OPTS="
   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+```
