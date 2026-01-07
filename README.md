@@ -78,6 +78,8 @@ $(brew --prefix)/opt/fzf/install
 
 ## Copy and paste this content behing in your ~/.zshrc file
 
+**Important: Put this config after the**```source $ZSH/oh-my-zsh.sh```
+
 ```
 source <(fzf --zsh)
 ```
