@@ -67,3 +67,9 @@ With --height HEIGHT[%], fzf will start below the cursor with the given height.
 ````
 fzf --height 40%
 ```
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+export FZF_CTRL_R_OPTS="
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --color header:italic
+  --header 'Press CTRL-Y to copy command into clipboard'"
