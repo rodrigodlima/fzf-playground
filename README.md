@@ -101,6 +101,37 @@ Or, still better:
 alias cdf='cd $(find . -type d |fzf)'
 ```
 
+## Management process
+
+Native command:
+
+``` 
+ps aux | grep chrome
+```
+
+copy the process number and after
+```
+kill -9 COPIED_PID
+```
+
+With FZF:
+
+```
+kill -9 $(ps aux |grep fzf | awk '{print $2}')
+```
+
+Or, you can create a shell function:
+
+```
+fkill() {
+  local pid
+  pid=$(ps aux | fzf | awk '{print $2}')
+  if [ -n "$pid" ]; then
+    kill -9 $pid
+  fi
+}
+```
+
 # Set up fzf key bindings and fuzzy completion
 
 Firts, install fzf key bindings:
