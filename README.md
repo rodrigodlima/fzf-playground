@@ -68,6 +68,20 @@ With --height HEIGHT[%], fzf will start below the cursor with the given height.
 fzf --height 40%
 ```
 
+# Browsing Logs with fzf
+One of the most powerful features of fzf is its ability to interact with live data streams, such as log files. Here’s how you can use fzf to browse log files in real time.
+
+To browse local log files
+
+```
+tail -f *.log | fzf --tail 100000 --tac --no-sort --exact --wrap
+````
+
+* **```--tail 100000```** ensures only the latest 100,000 lines are stored in memory
+* **```--tac```** reverses the order so you can see the newest logs first.
+* **```--wrap```** makes sure long lines are fully displayed.
+* **```--no-sort```** keeps the log entries in their original order.
+
 # Set up fzf key bindings and fuzzy completion
 
 Firts, install fzf key bindings:
