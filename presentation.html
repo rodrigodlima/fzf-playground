@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>FZF Demo - Rodrigo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+            padding: 30px;
+            background: #0d1117;
+            color: #c9d1d9;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #58a6ff;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        
+        .subtitle {
+            color: #8b949e;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .section {
+            margin-bottom: 35px;
+        }
+        
+        h2 {
+            color: #79c0ff;
+            margin-bottom: 15px;
+            font-size: 20px;
+            border-bottom: 2px solid #21262d;
+            padding-bottom: 8px;
+        }
+        
+        .command-item {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+            background: #161b22;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+            transition: all 0.2s;
+        }
+        
+        .command-item:hover {
+            background: #1c2128;
+            border-color: #58a6ff;
+        }
+        
+        .command-label {
+            color: #8b949e;
+            font-size: 12px;
+            min-width: 180px;
+            margin-right: 15px;
+        }
+        
+        .command {
+            flex: 1;
+            padding: 8px 12px;
+            font-size: 14px;
+            background: #0d1117;
+            border-radius: 4px;
+            color: #7ee787;
+            font-family: 'SF Mono', monospace;
+        }
+        
+        .copy-btn {
+            padding: 8px 20px;
+            background: #238636;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 15px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.2s;
+            min-width: 90px;
+        }
+        
+        .copy-btn:hover {
+            background: #2ea043;
+            transform: translateY(-1px);
+        }
+        
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+        
+        .copy-btn.copied {
+            background: #1f6feb;
+            animation: pulse 0.3s;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .comparison {
+            background: #1c2128;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 3px solid #f85149;
+        }
+        
+        .comparison-title {
+            color: #f85149;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+        
+        .note {
+            background: #1c2128;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 3px solid #d29922;
+            font-size: 13px;
+            color: #e3b341;
+        }
+        
+        .demo-number {
+            display: inline-block;
+            background: #58a6ff;
+            color: #0d1117;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 FZF - Fuzzy Finder Demo</h1>
+        <div class="subtitle">Technical Presentation - DevOps Engineering</div>
+        <!-- SECTION 1: BASICS -->
+        <div class="section">
+            <h2><span class="demo-number">1</span>Basic Commands</h2>
+
+            <div class="command-item">
+                <div class="command-label">Simple FZF</div>
+                <div class="command">fzf</div>
+                <button class="copy-btn" onclick="copy(this, 'fzf')">Copy</button>
+            </div>
+        </div>
+
+        <!-- SECTION 3: PREVIEW -->
+        <div class="section">
+            <h2><span class="demo-number">3</span>File Preview</h2>
+
+            <div class="command-item">
+                <div class="command-label">Basic preview</div>
+                <div class="command">cd ~/git; fzf --preview 'cat {}'</div>
+                <button class="copy-btn" onclick="copy(this, 'cd ~/git ; fzf --preview \'cat {}\'')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Preview with bat</div>
+                <div class="command">fzf --preview 'bat --color=always {}'</div>
+                <button class="copy-btn" onclick="copy(this, 'fzf --preview \'bat --color=always {}\'')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Preview with bat and edit with vim</div>
+                <div class="command">vim $(fzf --preview 'bat --color=always {}')</div>
+                <button class="copy-btn" onclick="copy(this, 'vim $(fzf --preview \'bat --color=always {}\')')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Preview and edit with larger window</div>
+                <div class="command">vim $(fzf --preview 'bat --color=always {}' --preview-window=right:60% --height=100%)</div>
+                <button class="copy-btn" onclick="copy(this, 'vim $(fzf --preview \'bat --color=always {}\' --preview-window=right:60% --height=100%)')">Copy</button>
+            </div>
+        </div>
+
+        <!-- SECTION 4: COMPARISONS -->
+        <div class="section">
+            <h2><span class="demo-number">4</span>Comparisons: FZF vs Native Commands</h2>
+
+            <div class="comparison">
+                <div class="comparison-title">❌ NATIVE COMMAND (slow and limited)</div>
+                <div class="command-item">
+                    <div class="command-label">Search specific file</div>
+                    <div class="command">time find . -type f -name migration_manager.py</div>
+                    <button class="copy-btn" onclick='copy(this, "find . -type f -name migration_manager.py")'>Copy</button>
+                    <div class="command">vim ./github/rodrigodlima/flask/migration_manager.py</div>
+                    <button class="copy-btn" onclick='copy(this, "vim ./github/rodrigodlima/flask/migration_manager.py")'>Copy</button>
+
+                </div>
+            </div>
+
+            <div class="comparison">
+                <div class="comparison-title">✅ WITH FZF (interactive and fast)</div>
+                <div class="command-item">
+                    <div class="command-label">Interactive fuzzy search</div>
+                    <div class="command">vim $(find . -type f | fzf)</div>
+                    <button class="copy-btn" onclick="copy(this, 'find . -type f | fzf')">Copy</button>
+                </div>
+            </div>
+
+            <div class="note">💡 Type "migration_manager" in FZF and see fuzzy search in action!</div>
+        </div>
+
+        <!-- SECTION 5: GIT INTEGRATION -->
+        <div class="section">
+            <h2><span class="demo-number">5</span>Git Integration</h2>
+
+            <div class="command-item">
+                <div class="command-label">Select branch</div>
+                <div class="command">git branch | fzf</div>
+                <button class="copy-btn" onclick="copy(this, 'git branch | fzf')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Interactive checkout</div>
+                <div class="command">git checkout $(git branch | fzf | tr -d ' ')</div>
+                <button class="copy-btn" onclick="copy(this, 'git checkout $(git branch | fzf | tr -d \' \')')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">View modified files</div>
+                <div class="command">git status --short | fzf</div>
+                <button class="copy-btn" onclick="copy(this, 'git status --short | fzf')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Search in history</div>
+                <div class="command">git log --oneline | fzf --preview 'git show {1}'</div>
+                <button class="copy-btn" onclick="copy(this, 'git log --oneline | fzf --preview \'git show {1}\'')">Copy</button>
+            </div>
+        </div>
+
+        <!-- SECTION 6: NATIVE KEYBINDINGS -->
+        <div class="section">
+            <h2><span class="demo-number">6</span>Native Shell Keybindings</h2>
+
+            <div class="note">⌨️ After installing with $(brew --prefix)/opt/fzf/install, these shortcuts become available:</div>
+
+            <div class="command-item">
+                <div class="command-label">Ctrl+R - History</div>
+                <div class="command">Ctrl+R (press in terminal)</div>
+                <button class="copy-btn" onclick="copy(this, '# Press Ctrl+R in terminal to search history')">Info</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Ctrl+T - Files</div>
+                <div class="command">Ctrl+T (press in terminal)</div>
+                <button class="copy-btn" onclick="copy(this, '# Press Ctrl+T in terminal to search files')">Info</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Alt+C - Directories</div>
+                <div class="command">Alt+C (press in terminal)</div>
+                <button class="copy-btn" onclick="copy(this, '# Press Alt+C in terminal to change directory')">Info</button>
+            </div>
+        </div>
+
+        <!-- SECTION 7: REAL USE CASES -->
+        <div class="section">
+            <h2><span class="demo-number">7</span>Use Cases - DevOps</h2>
+
+            <div class="command-item">
+                <div class="command-label">Search .tf files</div>
+                <div class="command">find . -name "*.tf" | fzf --preview 'bat --color=always {}'</div>
+                <button class="copy-btn" onclick='copy(this, "find . -name \"*.tf\" | fzf --preview &apos;bat --color=always {}&apos;")'>Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Jenkins logs</div>
+                <div class="command">ls -t /var/log/jenkins/*.log | fzf --preview 'tail -50 {}'</div>
+                <button class="copy-btn" onclick="copy(this, 'ls -t /var/log/jenkins/*.log | fzf --preview \'tail -50 {}\'')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Search in YAML/JSON</div>
+                <div class="command">find . -type f \( -name "*.yaml" -o -name "*.json" \) | fzf --preview 'cat {}'</div>
+                <button class="copy-btn" onclick='copy(this, "find . -type f \\( -name \"*.yaml\" -o -name \"*.json\" \\) | fzf --preview &apos;cat {}&apos;")'>Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Active processes</div>
+                <div class="command">ps aux | fzf</div>
+                <button class="copy-btn" onclick="copy(this, 'ps aux | fzf')">Copy</button>
+            </div>
+        </div>
+
+        <!-- SECTION 8: ADVANCED -->
+        <div class="section">
+            <h2><span class="demo-number">8</span>Advanced Features</h2>
+
+            <div class="command-item">
+                <div class="command-label">Multi-select</div>
+                <div class="command">find . -type f | fzf -m</div>
+                <button class="copy-btn" onclick="copy(this, 'find . -type f | fzf -m')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Open in editor</div>
+                <div class="command">vim $(fzf)</div>
+                <button class="copy-btn" onclick="copy(this, 'vim $(fzf)')">Copy</button>
+            </div>
+
+            <div class="note">💡 Use Tab to select multiple files in -m mode</div>
+        </div>
+    </div>
+
+    <script>
+        function copy(button, text) {
+            // Use modern Clipboard API
+            navigator.clipboard.writeText(text).then(() => {
+                // Visual feedback
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+
+                // Restore original state after 2 seconds
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                // Fallback if API fails
+                console.error('Copy error:', err);
+                alert('Command copied: ' + text);
+            });
+        }
+    </script>
+</body>
+</html>
