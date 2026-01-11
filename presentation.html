@@ -215,7 +215,7 @@
                 <div class="command-item">
                     <div class="command-label">Interactive fuzzy search</div>
                     <div class="command">vim $(find . -type f | fzf)</div>
-                    <button class="copy-btn" onclick="copy(this, 'find . -type f | fzf')">Copy</button>
+                    <button class="copy-btn" onclick="copy(this, 'vim $(find . -type f | fzf)')">Copy</button>
                 </div>
             </div>
 
@@ -303,25 +303,6 @@
                 <div class="command">ps aux | fzf</div>
                 <button class="copy-btn" onclick="copy(this, 'ps aux | fzf')">Copy</button>
             </div>
-        </div>
-
-        <!-- SECTION 8: ADVANCED -->
-        <div class="section">
-            <h2><span class="demo-number">8</span>Advanced Features</h2>
-
-            <div class="command-item">
-                <div class="command-label">Multi-select</div>
-                <div class="command">find . -type f | fzf -m</div>
-                <button class="copy-btn" onclick="copy(this, 'find . -type f | fzf -m')">Copy</button>
-            </div>
-
-            <div class="command-item">
-                <div class="command-label">Open in editor</div>
-                <div class="command">vim $(fzf)</div>
-                <button class="copy-btn" onclick="copy(this, 'vim $(fzf)')">Copy</button>
-            </div>
-
-            <div class="note">💡 Use Tab to select multiple files in -m mode</div>
         </div>
     </div>
 
