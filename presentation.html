@@ -165,38 +165,18 @@
             </div>
         </div>
 
-        <!-- SECTION 3: PREVIEW -->
+        <!-- SECTION 2: PREVIEW -->
         <div class="section">
-            <h2><span class="demo-number">3</span>File Preview</h2>
-
-            <div class="command-item">
-                <div class="command-label">Basic preview</div>
-                <div class="command">cd ~/git; fzf --preview 'cat {}'</div>
-                <button class="copy-btn" onclick="copy(this, 'cd ~/git ; fzf --preview \'cat {}\'')">Copy</button>
-            </div>
-
-            <div class="command-item">
-                <div class="command-label">Preview with bat</div>
-                <div class="command">fzf --preview 'bat --color=always {}'</div>
-                <button class="copy-btn" onclick="copy(this, 'fzf --preview \'bat --color=always {}\'')">Copy</button>
-            </div>
-
+            <h2><span class="demo-number">2</span>File Preview</h2>
             <div class="command-item">
                 <div class="command-label">Preview with bat and edit with vim</div>
                 <div class="command">vim $(fzf --preview 'bat --color=always {}')</div>
                 <button class="copy-btn" onclick="copy(this, 'vim $(fzf --preview \'bat --color=always {}\')')">Copy</button>
             </div>
-
-            <div class="command-item">
-                <div class="command-label">Preview and edit with larger window</div>
-                <div class="command">vim $(fzf --preview 'bat --color=always {}' --preview-window=right:60% --height=100%)</div>
-                <button class="copy-btn" onclick="copy(this, 'vim $(fzf --preview \'bat --color=always {}\' --preview-window=right:60% --height=100%)')">Copy</button>
-            </div>
         </div>
-
-        <!-- SECTION 4: COMPARISONS -->
+        <!-- SECTION 3: COMPARISONS -->
         <div class="section">
-            <h2><span class="demo-number">4</span>Comparisons: FZF vs Native Commands</h2>
+            <h2><span class="demo-number">3</span>Comparisons: FZF vs Native Commands</h2>
 
             <div class="comparison">
                 <div class="comparison-title">❌ NATIVE COMMAND (slow and limited)</div>
@@ -222,26 +202,14 @@
             <div class="note">💡 Type "migration_manager" in FZF and see fuzzy search in action!</div>
         </div>
 
-        <!-- SECTION 5: GIT INTEGRATION -->
+        <!-- SECTION 4: GIT INTEGRATION -->
         <div class="section">
-            <h2><span class="demo-number">5</span>Git Integration</h2>
-
-            <div class="command-item">
-                <div class="command-label">Select branch</div>
-                <div class="command">git branch | fzf</div>
-                <button class="copy-btn" onclick="copy(this, 'git branch | fzf')">Copy</button>
-            </div>
+            <h2><span class="demo-number">4</span>Git Integration</h2>
 
             <div class="command-item">
                 <div class="command-label">Interactive checkout</div>
                 <div class="command">git checkout $(git branch | fzf | tr -d ' ')</div>
                 <button class="copy-btn" onclick="copy(this, 'git checkout $(git branch | fzf | tr -d \' \')')">Copy</button>
-            </div>
-
-            <div class="command-item">
-                <div class="command-label">View modified files</div>
-                <div class="command">git status --short | fzf</div>
-                <button class="copy-btn" onclick="copy(this, 'git status --short | fzf')">Copy</button>
             </div>
 
             <div class="command-item">
@@ -251,40 +219,10 @@
             </div>
         </div>
 
-        <!-- SECTION 6: NATIVE KEYBINDINGS -->
+        <!-- SECTION 5: REAL USE CASES -->
         <div class="section">
-            <h2><span class="demo-number">6</span>Native Shell Keybindings</h2>
+            <h2><span class="demo-number">5</span>Use Cases - DevOps</h2>
 
-            <div class="note">⌨️ After installing with $(brew --prefix)/opt/fzf/install, these shortcuts become available:</div>
-
-            <div class="command-item">
-                <div class="command-label">Ctrl+R - History</div>
-                <div class="command">Ctrl+R (press in terminal)</div>
-                <button class="copy-btn" onclick="copy(this, '# Press Ctrl+R in terminal to search history')">Info</button>
-            </div>
-
-            <div class="command-item">
-                <div class="command-label">Ctrl+T - Files</div>
-                <div class="command">Ctrl+T (press in terminal)</div>
-                <button class="copy-btn" onclick="copy(this, '# Press Ctrl+T in terminal to search files')">Info</button>
-            </div>
-
-            <div class="command-item">
-                <div class="command-label">Alt+C - Directories</div>
-                <div class="command">Alt+C (press in terminal)</div>
-                <button class="copy-btn" onclick="copy(this, '# Press Alt+C in terminal to change directory')">Info</button>
-            </div>
-        </div>
-
-        <!-- SECTION 7: REAL USE CASES -->
-        <div class="section">
-            <h2><span class="demo-number">7</span>Use Cases - DevOps</h2>
-
-            <div class="command-item">
-                <div class="command-label">Search .tf files</div>
-                <div class="command">find . -name "*.tf" | fzf --preview 'bat --color=always {}'</div>
-                <button class="copy-btn" onclick='copy(this, "find . -name \"*.tf\" | fzf --preview &apos;bat --color=always {}&apos;")'>Copy</button>
-            </div>
 
             <div class="command-item">
                 <div class="command-label">Jenkins logs</div>
