@@ -219,15 +219,115 @@
             </div>
         </div>
 
-        <!-- SECTION 5: REAL USE CASES -->
+        <!-- SECTION 5: JENKINS CLI SETUP -->
         <div class="section">
-            <h2><span class="demo-number">5</span>Use Cases - DevOps</h2>
+            <h2><span class="demo-number">5</span>Jenkins CLI Setup</h2>
 
+            <div class="note">📋 Complete setup guide for Jenkins CLI integration</div>
 
             <div class="command-item">
-                <div class="command-label">Jenkins logs</div>
-                <div class="command">ls -t /var/log/jenkins/*.log | fzf --preview 'tail -50 {}'</div>
-                <button class="copy-btn" onclick="copy(this, 'ls -t /var/log/jenkins/*.log | fzf --preview \'tail -50 {}\'')">Copy</button>
+                <div class="command-label">Download Jenkins CLI</div>
+                <div class="command">wget http://YOUR_JENKINS_URL/jnlpJars/jenkins-cli.jar</div>
+                <button class="copy-btn" onclick="copy(this, 'wget http://YOUR_JENKINS_URL/jnlpJars/jenkins-cli.jar')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Alternative: curl download</div>
+                <div class="command">curl -O http://YOUR_JENKINS_URL/jnlpJars/jenkins-cli.jar</div>
+                <button class="copy-btn" onclick="copy(this, 'curl -O http://YOUR_JENKINS_URL/jnlpJars/jenkins-cli.jar')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Set Jenkins URL (temp)</div>
+                <div class="command">export JENKINS_URL=http://YOUR_JENKINS_URL</div>
+                <button class="copy-btn" onclick="copy(this, 'export JENKINS_URL=http://YOUR_JENKINS_URL')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Add to .bashrc/.zshrc (permanent)</div>
+                <div class="command">echo 'export JENKINS_URL=http://YOUR_JENKINS_URL' >> ~/.bashrc</div>
+                <button class="copy-btn" onclick='copy(this, "echo &apos;export JENKINS_URL=http://YOUR_JENKINS_URL&apos; >> ~/.bashrc")'>Copy</button>
+            </div>
+
+            <div class="note">🔐 Authentication Setup - Generate API Token</div>
+
+            <div class="command-item">
+                <div class="command-label">Step 1: Go to Jenkins User Config</div>
+                <div class="command">Open: YOUR_JENKINS_URL/user/YOUR_USERNAME/configure</div>
+                <button class="copy-btn" onclick="copy(this, 'YOUR_JENKINS_URL/user/YOUR_USERNAME/configure')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Step 2: Generate API Token</div>
+                <div class="command">Click "Add new Token" → Copy the generated token</div>
+                <button class="copy-btn" onclick="copy(this, 'Add new Token in Jenkins User Configuration')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Set credentials (temp)</div>
+                <div class="command">export JENKINS_USER_ID=your_username:your_api_token</div>
+                <button class="copy-btn" onclick="copy(this, 'export JENKINS_USER_ID=your_username:your_api_token')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Add credentials to .bashrc/.zshrc</div>
+                <div class="command">echo 'export JENKINS_USER_ID=username:token' >> ~/.bashrc</div>
+                <button class="copy-btn" onclick='copy(this, "echo &apos;export JENKINS_USER_ID=username:token&apos; >> ~/.bashrc")'>Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Test connection</div>
+                <div class="command">java -jar jenkins-cli.jar -auth $JENKINS_USER_ID who-am-i</div>
+                <button class="copy-btn" onclick="copy(this, 'java -jar jenkins-cli.jar -auth $JENKINS_USER_ID who-am-i')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">List available commands</div>
+                <div class="command">java -jar jenkins-cli.jar -auth $JENKINS_USER_ID help</div>
+                <button class="copy-btn" onclick="copy(this, 'java -jar jenkins-cli.jar -auth $JENKINS_USER_ID help')">Copy</button>
+            </div>
+
+            <div class="note">💡 Pro Tip: Create an alias for easier usage</div>
+
+            <div class="command-item">
+                <div class="command-label">Create jenkins-cli alias</div>
+                <div class="command">echo 'alias jcli="java -jar ~/jenkins-cli.jar -auth $JENKINS_USER_ID"' >> ~/.bashrc</div>
+                <button class="copy-btn" onclick='copy(this, "echo &apos;alias jcli=\"java -jar ~/jenkins-cli.jar -auth $JENKINS_USER_ID\"&apos; >> ~/.bashrc")'>Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Usage with alias</div>
+                <div class="command">jcli list-jobs | fzf --preview 'jcli console {}'</div>
+                <button class="copy-btn" onclick="copy(this, 'jcli list-jobs | fzf --preview &apos;jcli console {}&apos;')">Copy</button>
+            </div>
+        </div>
+
+        <!-- SECTION 6: REAL USE CASES -->
+        <div class="section">
+            <h2><span class="demo-number">6</span>Jenkins + FZF - Real Use Cases</h2>
+
+            <div class="command-item">
+                <div class="command-label">Select Jenkins job and view log</div>
+                <div class="command">java -jar jenkins-cli.jar -auth user:token list-jobs | fzf --preview 'java -jar jenkins-cli.jar -auth user:token console {}'</div>
+                <button class="copy-btn" onclick="copy(this, 'java -jar jenkins-cli.jar -auth user:token list-jobs | fzf --preview \'java -jar jenkins-cli.jar -auth user:token console {}\'')">Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Select job and specific build number</div>
+                <div class="command">JOB=$(java -jar jenkins-cli.jar -auth user:token list-jobs | fzf) && java -jar jenkins-cli.jar -auth user:token builds "$JOB" | fzf --preview "java -jar jenkins-cli.jar -auth user:token console $JOB {1}"</div>
+                <button class="copy-btn" onclick='copy(this, "JOB=$(java -jar jenkins-cli.jar -auth user:token list-jobs | fzf) && java -jar jenkins-cli.jar -auth user:token builds \"$JOB\" | fzf --preview \"java -jar jenkins-cli.jar -auth user:token console $JOB {1}\"")'>Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Search failed builds with logs</div>
+                <div class="command">java -jar jenkins-cli.jar -auth user:token list-jobs | fzf --preview 'java -jar jenkins-cli.jar -auth user:token console {} | tail -100'</div>
+                <button class="copy-btn" onclick='copy(this, "java -jar jenkins-cli.jar -auth user:token list-jobs | fzf --preview &apos;java -jar jenkins-cli.jar -auth user:token console {} | tail -100&apos;")'>Copy</button>
+            </div>
+
+            <div class="command-item">
+                <div class="command-label">Interactive job trigger</div>
+                <div class="command">java -jar jenkins-cli.jar -auth user:token list-jobs | fzf | xargs -I {} java -jar jenkins-cli.jar -auth user:token build {}</div>
+                <button class="copy-btn" onclick="copy(this, 'java -jar jenkins-cli.jar -auth user:token list-jobs | fzf | xargs -I {} java -jar jenkins-cli.jar -auth user:token build {}')">Copy</button>
             </div>
 
             <div class="command-item">
